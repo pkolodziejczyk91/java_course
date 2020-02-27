@@ -10,12 +10,12 @@ package piotr.javaCourse.sandbox.excerciseNr2;
       this.y = y;
     }
 
-    public static double distance(Point p1, Point p2) {
+    public double distance(Point p2) {
 
       double dx;
       double dy;
-      dx = p2.x - p1.x;
-      dy = p2.y - p1.y;
+      dx = p2.x - this.x;
+      dy = p2.y - this.y;
 
       return Math.sqrt((dx * dx) + (dy * dy));
     }
