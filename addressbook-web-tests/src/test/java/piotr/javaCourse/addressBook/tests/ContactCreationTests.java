@@ -1,11 +1,12 @@
-package piotr.javaCourse.addressBook;
+package piotr.javaCourse.addressBook.tests;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import piotr.javaCourse.addressBook.model.ContactData;
 
-public class ContactCreationTest {
+public class ContactCreationTests {
   private WebDriver wd;
 
   @BeforeMethod(alwaysRun = true)

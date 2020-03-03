@@ -1,4 +1,4 @@
-package piotr.javaCourse.addressBook;
+package piotr.javaCourse.addressBook.model;
 
 public class GroupData {
   private final String name;
