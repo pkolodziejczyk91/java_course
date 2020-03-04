@@ -3,7 +3,6 @@ package piotr.javaCourse.addressBook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import piotr.javaCourse.addressBook.tests.ContactHelper;
 
 import java.util.concurrent.TimeUnit;
 

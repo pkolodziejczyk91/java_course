@@ -1,8 +1,7 @@
-package piotr.javaCourse.addressBook.tests;
+package piotr.javaCourse.addressBook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import piotr.javaCourse.addressBook.appmanager.HelperBase;
 import piotr.javaCourse.addressBook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
