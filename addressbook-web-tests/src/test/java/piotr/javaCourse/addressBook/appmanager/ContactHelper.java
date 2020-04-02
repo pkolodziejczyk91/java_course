@@ -24,11 +24,11 @@ public class ContactHelper extends HelperBase {
 
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
-//    type(By.name("middlename"), contactData.getMiddlename());
+    type(By.name("middlename"), contactData.getMiddlename());
     type(By.name("lastname"), contactData.getLastname());
-//    type(By.name("title"), contactData.getTitle());
-//    type(By.name("mobile"), contactData.getMobile());
-//    type(By.name("email"), contactData.getEmail());
+    type(By.name("title"), contactData.getTitle());
+    type(By.name("mobile"), contactData.getMobile());
+    type(By.name("email"), contactData.getEmail());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -76,16 +76,27 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> all() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("td.center"));
-    for (WebElement element : elements) {
-      String name = element.getText();
-      String id = element.findElement(By.tagName("input")).getAttribute("value");
-      ContactData contact = new ContactData(id, name, null);
-      contacts.add(contact);
-    }
 
-    return contacts;
+    List<WebElement> elements = wd.findElements(By.className("entry"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+
+      String firstname = cells.get(1).getText();
+      String middlename = cells.get(3).getText();
+      String lastname = cells.get(2).getText();
+      String title = cells.get(5).getText();
+      String mobilephone = cells.get(9).getText();
+      String email = cells.get(12).getText();
+
+      ContactData contactData = new ContactData().withId(id).withFirstname(firstname).withMiddlename(middlename).withLastname(lastname).withTitle(title).withMobilephone(mobilephone).withEmail(email);
+
+      contacts.add(contactData);
+
+      return contacts;
+    }
   }
 }
