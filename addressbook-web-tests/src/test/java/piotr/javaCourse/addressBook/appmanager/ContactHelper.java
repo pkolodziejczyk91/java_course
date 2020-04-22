@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import piotr.javaCourse.addressBook.model.ContactData;
+import piotr.javaCourse.addressBook.model.Contacts;
 import piotr.javaCourse.addressBook.model.GroupData;
 
 import java.util.ArrayList;
@@ -45,6 +46,11 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectContactById(int id) {
+
+    click(By.cssSelector("input[value='"+id+ "']"));
+  }
+
   public void deleteContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
@@ -76,8 +82,8 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> all() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
 
     List<WebElement> elements = wd.findElements(By.className("entry"));
     for (WebElement element : elements) {

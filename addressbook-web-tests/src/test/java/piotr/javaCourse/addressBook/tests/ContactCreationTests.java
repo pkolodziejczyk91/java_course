@@ -3,27 +3,23 @@ package piotr.javaCourse.addressBook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import piotr.javaCourse.addressBook.model.ContactData;
-
-import java.util.Comparator;
-import java.util.List;
+import piotr.javaCourse.addressBook.model.Contacts;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test
   public void testContactCreation() {
-    List<ContactData> before = app.getContactHelper().all();
+    Contacts before = app.contact().all();
     app.getContactHelper().initContactCreation();
     app.getContactHelper().fillContactForm(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
     app.getContactHelper().submitContactCreation();
     app.goTo().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().all();
+    Contacts after = app.contact().all();
 
     Assert.assertEquals(after.size(), before.size() +1);
 
-    before.add(contact);
-    Comparator<? super ContactData> byId = (c1, c2)->Integer.compare(c1.getId(), c2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before,after);
+    assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
   }
 }

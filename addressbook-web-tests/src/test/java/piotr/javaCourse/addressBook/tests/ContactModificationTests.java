@@ -1,33 +1,28 @@
 package piotr.javaCourse.addressBook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import piotr.javaCourse.addressBook.model.ContactData;
-
-import java.util.HashSet;
-import java.util.List;
+import piotr.javaCourse.addressBook.model.Contacts;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
   @Test(enabled = false)
 
   public void testContactModification() {
-    if (! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
+    if (app.contact.isThereAContact()) {
+      app.contact.createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
     }
-    List<ContactData> before = app.getContactHelper().all();
-    app.getContactHelper().selectContact(before.size() -1);
-    app.getContactHelper().initContactModification();
-    ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstname("Piotr").withLastname("Kolodziejczyk");
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.goTo().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().all();
+    Contacts before = app.contact().all();
+    ContactData modifiedContact = before.iterator().next();
+    ContactData contact = new
+            ContactData().withId(modifiedContact.getId()).withFirstname("Piotr").withLastname("Kolodziejczyk");
+    app.contact().modify(contact);
+    Contacts after = app.contact().all();
+    assertEquals(after.size(), before.size());
+    assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
-    Assert.assertEquals(after.size(), before.size());
-
-    before.remove(before.size() -1);
-    before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }

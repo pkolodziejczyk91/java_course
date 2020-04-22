@@ -1,30 +1,30 @@
 package piotr.javaCourse.addressBook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import piotr.javaCourse.addressBook.model.ContactData;
-
-
-import java.util.List;
+import piotr.javaCourse.addressBook.model.Contacts;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
 
-  @Test(enabled = false)
-
-  public void testContactDeletion() {
-    if (! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.contact().all().size() == 0) {
+      app.contact().createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
     }
-    List<ContactData> before = app.getContactHelper().all();
-    app.getContactHelper().selectContact(before.size() -1);
-    app.getContactHelper().deleteContact();
-    app.getContactHelper().acceptContactAlert();
-    app.goTo().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().all();
-
-    Assert.assertEquals(after.size(), before.size() -1);
-
-    before.remove(before.size() -1);
-    Assert.assertEquals(before, after);
   }
-}
+
+    @Test
+    public void testContactDeletion() {
+
+      Contacts before = app.contact().all();
+      ContactData deletedContact = before.iterator().next();
+      app.contact().delete(deletedContact);
+      Contacts after = app.contact().all();
+      assertEquals(after.size(), before.size() - 1);
+      assertThat(after, equalTo(before.without(deletedContact)));
+    }
+  }
