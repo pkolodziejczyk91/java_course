@@ -12,9 +12,9 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() {
     Contacts before = app.contact().all();
-    app.getContactHelper().initContactCreation();
-    app.getContactHelper().fillContactForm(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
-    app.getContactHelper().submitContactCreation();
+    app.contact().initContactCreation();
+    app.contact().fillContactForm(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
+    app.contact().submitContactCreation();
     app.goTo().returnToHomePage();
     Contacts after = app.contact().all();
 
