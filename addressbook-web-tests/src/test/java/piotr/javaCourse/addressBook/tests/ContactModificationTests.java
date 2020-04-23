@@ -12,8 +12,8 @@ public class ContactModificationTests extends TestBase {
   @Test(enabled = false)
 
   public void testContactModification() {
-    if (app.contact.isThereAContact()) {
-      app.contact.createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
+    if (app.contact().isThereAContact()) {
+      app.contact().createContact(new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk"));
     }
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
