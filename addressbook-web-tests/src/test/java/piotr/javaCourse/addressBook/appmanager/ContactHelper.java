@@ -97,6 +97,17 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteContact();
+  }
+
+  public void modify(ContactData contact) {
+    selectContactById(contact.getId());
+    initContactModification();
+    submitContactModification();
+    click(By.linkText("home"));
+  }
 
 
   public ContactData infoFromEditForm(ContactData contact) {
