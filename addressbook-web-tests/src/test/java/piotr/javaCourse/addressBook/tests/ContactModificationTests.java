@@ -9,7 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test
 
   public void testContactModification() {
     if (app.contact().isThereAContact()) {
