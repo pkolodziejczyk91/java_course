@@ -1,5 +1,7 @@
 package piotr.javaCourse.addressBook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.*;
 import piotr.javaCourse.addressBook.model.GroupData;
@@ -18,8 +20,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validGroups() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/resources/groups.csv")));
+  public Iterator<Object[]> validGroupsFromXml() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/resources/groups.xml")));
     String xml = "";
     String line = reader.readLine();
     while (line != null) {
@@ -32,7 +34,21 @@ public class GroupCreationTests extends TestBase {
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
-  @Test(dataProvider = "validGroups")
+  @DataProvider
+  public Iterator<Object[]> validGroupsFromJson() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/resources/groups.json")));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null) {
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
+
+  @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
       app.goTo().groupPage();
       Groups before = app.group().all();
