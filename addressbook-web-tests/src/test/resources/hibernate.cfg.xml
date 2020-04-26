@@ -45,6 +45,7 @@
 
 
     <mapping class="piotr.javaCourse.addressBook.model.GroupData"/>
+        <mapping class="piotr.javaCourse.addressBook.model.ContactData"/>
 
 </session-factory>
 

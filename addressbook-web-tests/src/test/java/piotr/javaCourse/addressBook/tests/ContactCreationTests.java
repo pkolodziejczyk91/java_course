@@ -39,14 +39,14 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().initContactCreation();
     File photo = new File("src/test/resources/LOGO_qa-courses.png");
     app.contact().fillContactForm(
             new ContactData().withFirstname("Piotr").withLastname("Kolodziejczyk").withPhoto(photo), true);
     app.contact().submitContactCreation();
     app.goTo().returnToHomePage();
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     Assert.assertEquals(after.size(), before.size() +1);
 
