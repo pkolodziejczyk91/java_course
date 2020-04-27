@@ -3,8 +3,6 @@ package piotr.javaCourse.addressBook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import piotr.javaCourse.addressBook.model.ContactData;
 import piotr.javaCourse.addressBook.model.Contacts;
 

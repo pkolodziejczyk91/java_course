@@ -8,7 +8,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import piotr.javaCourse.addressBook.model.ContactData;
-import piotr.javaCourse.addressBook.model.GroupData;
 
 import java.util.List;
 
